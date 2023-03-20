@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 export const Home = () => {
@@ -22,7 +23,7 @@ export const Home = () => {
                 peliculas.map(pelicula => (
                     <div key={pelicula.id}>
                         <img src={`https://image.tmdb.org/t/p/w500/${pelicula.poster_path}`} alt={pelicula.name} />
-                        <p>{pelicula.name}</p>
+                        <Typography>{pelicula.name}</Typography>
                     </div>
                 ))
             }
