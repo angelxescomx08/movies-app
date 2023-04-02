@@ -1,4 +1,6 @@
+import { Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { MainLayout } from '../layout'
 
 export const Home = () => {
 
@@ -15,18 +17,21 @@ export const Home = () => {
         obtenerPeliculas()
     }, [])
 
+
     return (
-        <div>
 
-            {
-                peliculas.map(pelicula => (
-                    <div key={pelicula.id}>
-                        <img src={`https://image.tmdb.org/t/p/w500/${pelicula.poster_path}`} alt={pelicula.name} />
-                        <p>{pelicula.name}</p>
-                    </div>
-                ))
-            }
+        <MainLayout>
+            <div>
+                {
+                    peliculas.map(pelicula => (
+                        <div key={pelicula.id}>
+                            <img src={`https://image.tmdb.org/t/p/w500/${pelicula.poster_path}`} alt={pelicula.name} />
+                            <Typography>{pelicula.name}</Typography>
+                        </div>
+                    ))
+                }
+            </div>
+        </MainLayout>
 
-        </div>
     )
 }
