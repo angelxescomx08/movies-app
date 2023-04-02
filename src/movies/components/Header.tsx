@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 export const Header = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="fixed" sx={{ backgroundColor: '#1e1e1e' }}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -22,9 +22,9 @@ export const Header = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        News
+                        Movies App
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Button color="inherit">Logout</Button>
                 </Toolbar>
             </AppBar>
         </Box>
