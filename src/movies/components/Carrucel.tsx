@@ -13,7 +13,7 @@ export const Carrucel = () => {
     const [peliculas, setPeliculas] = useState<any[]>([])
 
     const obtenerPeliculas = async () => {
-        const url = 'https://api.themoviedb.org/3/trending/all/week?api_key=a035f3066ffb501ea80d854f4ec7b9f2'
+        const url = `${import.meta.env.VITE_API_URL}/trending/all/week?api_key=${import.meta.env.VITE_KEY_API}`
         const res = await fetch(url)
         const data = await res.json()
         setPeliculas(data.results)
@@ -35,8 +35,8 @@ export const Carrucel = () => {
                 spaceBetween={10}
                 slidesPerView={5}
                 navigation
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={() => { }}
+                onSwiper={(swiper) => { }}
             >
                 {
                     peliculas.map(pelicula => (
