@@ -1,5 +1,5 @@
 import { Typography, Box } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, FC } from 'react'
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,14 +8,20 @@ import { Navigation } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { MovieShort, MoviesResponse } from '../interfaces';
 
-export const Carrucel = () => {
-    const [peliculas, setPeliculas] = useState<any[]>([])
+interface Props {
+    titulo: string;
+    slug: string;
+}
+
+export const Carrucel: FC<Props> = ({ titulo, slug }) => {
+    const [peliculas, setPeliculas] = useState<MovieShort[]>([])
 
     const obtenerPeliculas = async () => {
-        const url = `${import.meta.env.VITE_API_URL}/trending/all/week?api_key=${import.meta.env.VITE_KEY_API}`
+        const url = `${import.meta.env.VITE_API_URL}${slug}api_key=${import.meta.env.VITE_KEY_API}`
         const res = await fetch(url)
-        const data = await res.json()
+        const data: MoviesResponse = await res.json()
         setPeliculas(data.results)
     }
 
@@ -28,7 +34,7 @@ export const Carrucel = () => {
             <Typography
                 fontWeight={600}
                 sx={{ color: '#fff', fontSize: 20, marginBottom: 1 }}>
-                Lo más visto
+                {titulo}
             </Typography>
             <Swiper
                 modules={[Navigation]}
@@ -49,7 +55,7 @@ export const Carrucel = () => {
                                     borderRadius: 10
                                 }}
                                 src={`https://image.tmdb.org/t/p/w500/${pelicula.poster_path}`}
-                                alt={pelicula.name}
+                                alt={pelicula.title}
                             />
                         </SwiperSlide>
                     ))
