@@ -9,6 +9,7 @@ import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { MovieShort, MoviesResponse } from '../interfaces';
+import { suspend } from 'suspend-react';
 
 interface Props {
     titulo: string;
@@ -16,18 +17,25 @@ interface Props {
 }
 
 export const Carrucel: FC<Props> = ({ titulo, slug }) => {
-    const [peliculas, setPeliculas] = useState<MovieShort[]>([])
+    //const [peliculas, setPeliculas] = useState<MovieShort[]>([])
 
-    const obtenerPeliculas = async () => {
+    const sleep = (time_miliseconds: number) => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('Proceso terminado');
+                resolve(1)
+            }, time_miliseconds)
+        })
+    }
+
+    const peliculas = suspend(async () => {
+        //await sleep(3000)
         const url = `${import.meta.env.VITE_API_URL}${slug}api_key=${import.meta.env.VITE_KEY_API}`
         const res = await fetch(url)
         const data: MoviesResponse = await res.json()
-        setPeliculas(data.results)
-    }
-
-    useEffect(() => {
-        obtenerPeliculas()
-    }, [])
+        return data.results;
+        //setPeliculas(data.results)
+    }, [slug])
 
     return (
         <Box sx={{ marginBottom: 6 }}>
